@@ -1,6 +1,6 @@
 const Banner = () => {
     return(
-        <section className="relative pt-40 h-[340px] w-full flex items-center justify-center overflow-hidden">
+        <section className="select-none relative pt-40 h-[340px] w-full flex items-center justify-center overflow-hidden">
             
             <img 
                 src="https://i.blogs.es/669147/ram-s6-key--rt-1920x1080/1366_2000.jpeg" 
