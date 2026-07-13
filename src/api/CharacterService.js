@@ -25,3 +25,11 @@ export const getCharactersById = async (id) => {
     const response = await api.get(`/character/${id}`);
     return response.data;
 }
+
+//funcion para filtrado de muestra
+export const getCharactersByQuery = async (queryString) => {
+    // queryString recibirá algo como: "status=Alive" o "gender=female"
+    const response = await api.get(`/character/?${queryString}`);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    return response.data;
+};

@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <table className="fixed bottom-0 w-full border-t-2 border-solid border-green-500 bg-dark-900 text-gray-300">
+        <table className="bottom-0 w-full border-t-2 border-solid border-green-500 bg-dark-900 text-gray-300">
             <tbody>
                 <tr>
                 <td align="center" className="py-10 px-5">
