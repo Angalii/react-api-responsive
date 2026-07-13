@@ -2,15 +2,18 @@
 import { useEffect, useState } from "react";
 import { getCharacters } from "../api/CharacterService";
 
-const useCharacters = () => {
+const useCharacters = (query = "") => {
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     
     useEffect(() => {
         const loadCharacters = async () => {
+            setLoading(true);
+            setError(null);
+
             try {
-                const data = await getCharacters();
+                const data = await getCharacters(query);
                 setCharacters(data);
             } catch (err) {
                 setError(err);
@@ -20,7 +23,7 @@ const useCharacters = () => {
         };
 
         loadCharacters();
-    }, []);
+    }, [query]);
 
     return {
         characters,

@@ -1,11 +1,12 @@
 //logica para consumir la api de rick and morty
-import { useEffect } from "react";
 import api from "./axios";
 
 // api : nombre del endpoint de axios.js / service instancia de api
 // obtener todos los personajes : results trae todo
-export const getCharacters = async () => {
-    const response = await api.get("/character");
+export const getCharacters = async (name = "") => {
+    const trimmedName = name?.trim();
+    const config = trimmedName ? { params: { name: trimmedName } } : {};
+    const response = await api.get("/character", config);
     await new Promise((resolve) => setTimeout(resolve, 1500));
     return response.data.results;
 };
