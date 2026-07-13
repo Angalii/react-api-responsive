@@ -1,20 +1,29 @@
 import CharacterGrid from "../features/characters/CharacterGrid";
 import useCharacters from "../hooks/useCharacters";
-import { Link } from 'react-router-dom';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const Characters = () => {
-    //estados para la barra de busqueda
-    //estado donde se escribe la busqueda
+    //estado para lo que escribe el usuario en la barra de búsqueda
     const [busqueda, setBusqueda] = useState('');
-    //nuevo estado de la escritura final de busqueda
+    //estado final que se envía al hook cuando el usuario pulsa Buscar
     const [busquedaQuery, setBusquedaQuery] = useState('');
-    //se pasa la query al hook, si está vacio devuelve todo, sino filtra
-    const { characters, loading, error } = useCharacters(busquedaQuery);
+    //estado de la página actual para la paginación
+    const [page, setPage] = useState(1);
+
+    // Se pasa tanto la búsqueda como la página actual para cargar solo la página solicitada
+    const { characters, loading, error, info } = useCharacters(busquedaQuery, page);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
+        // Al buscar volvemos a la primera página para que la nueva consulta empiece desde el inicio
+        setPage(1);
         setBusquedaQuery(busqueda.trim());
+    };
+
+    // Cuando cambia la página, volvemos al inicio de la vista para que el usuario vea los resultados desde arriba.
+    const handlePageChange = (nextPage) => {
+        setPage(nextPage);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     if (error) {
@@ -22,7 +31,7 @@ const Characters = () => {
             <div className="max-w-7xl mx-auto pt-28 text-center space-y-4">
                 <h1 className="text-xl font-bold text-red-400">No se encontraron personajes con ese nombre.</h1>
                 <button 
-                    onClick={() => { setBusqueda(''); setBusquedaQuery(''); }}
+                    onClick={() => { setBusqueda(''); setBusquedaQuery(''); setPage(1); }}
                     className="text-sm bg-zinc-900 border border-zinc-800 text-white px-5 py-2.5 rounded-xl hover:bg-zinc-800 transition-all"
                 >
                     Ver todos los personajes
@@ -73,6 +82,35 @@ const Characters = () => {
             </div>
 
             <CharacterGrid characters={characters} loading={loading} />
+
+            {/* Controles de paginación: se muestran solo si la API aportó información de páginas. */}
+            {info && !loading && (
+                <div className="flex flex-row items-center justify-center gap-3 px-4 pb-10 mt-6">
+                    <button
+                        onClick={() => handlePageChange(Math.max(page - 1, 1))}
+                        disabled={page === 1}
+                        className="px-4 py-2 rounded-xl bg-zinc-900 text-white border border-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-800 transition-all"
+                    >
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
+                        </svg>
+                    </button>
+
+                    <span className="text-sm text-zinc-400">
+                        Página {page} de {info.pages}
+                    </span>
+
+                    <button
+                        onClick={() => handlePageChange(page + 1)}
+                        disabled={page >= info.pages}
+                        className="px-4 py-2 rounded-xl bg-lime-500 text-zinc-950 font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-lime-400 transition-all"
+                    >
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1"/>
+                        </svg>
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

@@ -3,12 +3,21 @@ import api from "./axios";
 
 // api : nombre del endpoint de axios.js / service instancia de api
 // obtener todos los personajes : results trae todo
-export const getCharacters = async (name = "") => {
+export const getCharacters = async (name = "", page = 1) => {
+    // Separamos el texto de búsqueda del número de página porque la API de Rick and Morty
+    // devuelve tanto los resultados como la información de paginación en un mismo objeto.
     const trimmedName = name?.trim();
-    const config = trimmedName ? { params: { name: trimmedName } } : {};
-    const response = await api.get("/character", config);
+    const params = { page };
+
+    if (trimmedName) {
+        params.name = trimmedName;
+    }
+
+    const response = await api.get("/character", { params });
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    return response.data.results;
+
+    // Se devuelve el objeto completo para poder usar response.data.results y response.data.info.pages.
+    return response.data;
 };
 
 //obtener personaje por id

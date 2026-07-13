@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import { getCharacters } from "../api/CharacterService";
 
-const useCharacters = (query = "") => {
+const useCharacters = (query = "", page = 1) => {
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [info, setInfo] = useState(null);
     
     useEffect(() => {
         const loadCharacters = async () => {
@@ -13,8 +14,10 @@ const useCharacters = (query = "") => {
             setError(null);
 
             try {
-                const data = await getCharacters(query);
-                setCharacters(data);
+                // Aquí se pide la página actual y también se obtiene la info de paginación.
+                const data = await getCharacters(query, page);
+                setCharacters(data.results || []);
+                setInfo(data.info || null);
             } catch (err) {
                 setError(err);
             } finally {
@@ -23,12 +26,13 @@ const useCharacters = (query = "") => {
         };
 
         loadCharacters();
-    }, [query]);
+    }, [query, page]);
 
     return {
         characters,
         loading,
         error,
+        info,
     };
 };
 

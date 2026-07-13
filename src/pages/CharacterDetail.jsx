@@ -14,30 +14,6 @@ const CharacterDetail = () => {
     console.log("ID:", id, "Character:", character);
 
     return (
-        // <div className="max-w-3xl pt-28 mx-auto py-10 flex flex-row gap-8">
-        //     <div>
-        //         <img
-        //         src={character.image}
-        //         alt={character.name}
-        //         className="mx-auto rounded-lg hover:bg-gray-900 hover:shadow-2xl hover:shadow-green-400 transition-shadow"
-        //         />
-        //     </div>
-        //     <div className="text-white flex flex-col justify-start ">
-        //         <h1 className="text-xl font-black text-white tracking-wide uppercase transition-colors group-hover:text-lime-400">{character.name}</h1>
-        //         <div className="flex items-center justify-start gap-1.5 mt-1 text-xs">
-        //             <span className={`w-1.5 h-1.5 rounded-full ${
-        //                 character.status === 'Alive' ? 'bg-lime-400 animate-pulse shadow-[0_0_8px_#a3e635]' :
-        //                 character.status === 'Dead' ? 'bg-rose-500 shadow-[0_0_8px_#f43f5e]' : 'bg-zinc-500'
-        //             }`} />
-        //             <span className="text-zinc-400 font-mono tracking-wider text-[11px] uppercase">
-        //                 {character.status} - {character.species}
-        //             </span>
-        //         </div>
-        //         <p className="text-lg">Gender: {character.gender}</p>
-        //         <p className="text-lg">Origin: {character.origin?.name}</p>
-        //         <p className="text-lg">Location: {character.location?.name}</p>
-        //     </div>
-        // </div>
 
         <div className="max-w-4xl pt-28 mx-auto py-10 px-4">
             <div className="group relative flex flex-col md:flex-row gap-8 p-6 bg-zinc-950/40 backdrop-blur-md rounded-2xl ">
