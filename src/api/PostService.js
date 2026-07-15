@@ -21,3 +21,25 @@ export const createPost = async (nuevoPost) => {
         throw error;
     }
 }
+
+// PUT: editar un post
+export const updatePost = async (id, data) => {
+    try {
+        const response = await apiPlaceholder.put(`/posts/${id}`, data);
+        return response.data;
+    } catch(error) {
+        console.error("Error al actualizar cambio: ", error);
+        throw error;
+    }
+}
+
+// DELETE: eliminar un post
+export const deletePost = async (id) => {
+    try {
+        const response = await apiPlaceholder.delete(`/posts/${id}`)
+        return response.data;
+    } catch(error) {
+        console.error("Error al eliminar post: ", error);
+        throw error;
+    }
+}
