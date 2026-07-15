@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import CharacterPage from '../pages/Characters'
 import PostPage from '../pages/Posts'
 import AboutUs from '../pages/AboutUs'
+import CharacterDetail from '../pages/CharacterDetail';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const AppRoute = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/characters" element={<CharacterPage />} />
+                    <Route path="/:id" element={<CharacterDetail />} />
                     <Route path="/posts" element={<PostPage />} />
                     <Route path="/aboutus" element={<AboutUs />} />
                 </Routes>
