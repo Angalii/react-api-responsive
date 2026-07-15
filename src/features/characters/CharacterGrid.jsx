@@ -1,7 +1,14 @@
 import CharacterCard from "./CharacterCard";
 import CharacterSkeleton from "./CharacterSkeleton";
+import useCharacters from "../../hooks/useCharacters";
 
-const CharacterGrid = ({ characters = [], loading = false }) => {
+const CharacterGrid = ({ characters: externalCharacters, loading: externalLoading = false, peticion = "" }) => {
+    const shouldFetch = Boolean(peticion) && externalCharacters === undefined;
+    const { characters: fetchedCharacters, loading: fetchedLoading } = useCharacters(shouldFetch ? peticion : "", 1);
+
+    const characters = externalCharacters ?? fetchedCharacters ?? [];
+    const loading = shouldFetch ? fetchedLoading : externalLoading;
+
     if (loading) {
         return (
             <div className="grid gap-6 p-8 sm:grid-cols-2 lg:grid-cols-4">
