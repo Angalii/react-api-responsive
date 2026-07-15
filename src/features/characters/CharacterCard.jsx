@@ -4,7 +4,6 @@ const CharacterCard = ({ character }) => {
     return (
         <div className="border border-zinc-800 shadow-xl group relative w-full overflow-hidden rounded-3xl border border-transparent bg-transparent p-4 transition-all duration-500 hover:border-lime-500/30 hover:bg-zinc-900/60 hover:backdrop-blur-md hover:shadow-[0_0_30px_rgba(132,204,22,0.15)]">
             
-            {/* EFECTO WOW EN HOVER: Resplandor verde de fondo que aparece suavemente */}
             <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-48 h-48 bg-lime-500/20 blur-[50px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
 
             <div className="text-center mb-4 relative z-10">
