@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import useCharactersId from "../hooks/useCharactersId"
 import {Link} from "react-router-dom"
 import CharacterSkeleton from "../features/characters/CharacterSkeleton";
+import CharacterGrid from "../features/characters/CharacterGrid";
+import Footer from "../components/Footer";
 
 const CharacterDetail = () => {
     const { id } = useParams(); // lee el id de la URL
@@ -14,7 +16,7 @@ const CharacterDetail = () => {
     console.log("ID:", id, "Character:", character);
 
     return (
-
+<>
         <div className="max-w-4xl pt-28 mx-auto py-10 px-4">
             <div className="group relative flex flex-col md:flex-row gap-8 p-6 bg-zinc-950/40 backdrop-blur-md rounded-2xl ">
                 
@@ -54,17 +56,14 @@ const CharacterDetail = () => {
                         </div>
 
                         <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-lime-400 hover:bg-lime-500 hover:text-zinc-950 transition-colors duration-300">
-                            <Link>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
-                            </svg> 
+                            <Link to="/characters">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                            </svg>
                             </Link>
                         </div>
                     </div>
 
-                        
-
-                    {/* Datos Técnicos (Estilo Tarjeta de Datos de Nave) */}
                     <div className="mt-6 space-y-3 font-sans">
                         <div className="border-l-2 border-zinc-800 group-hover:border-lime-500/40 pl-3 transition-colors duration-500">
                             <span className="block text-[10px] uppercase font-mono tracking-widest text-zinc-500">Gender</span>
@@ -88,7 +87,22 @@ const CharacterDetail = () => {
                 </div>
             </div>
         </div>
-
+        <section className="max-w-7xl mx-auto px-4 pb-6">
+                <hr className="mb-12 border-zinc-800" />
+                <div className="flex flex-col gap-1">
+                    <p className="text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold">
+                        Novedades
+                    </p>
+                    <h2 className="text-2xl font-bold text-white tracking-tight">Conoce a más personajes</h2>
+                </div>
+            </section>
+        <section className="max-w-7xl mx-auto">
+            <div className="[&_a:nth-child(n+5)]:hidden [&_div:nth-child(n+5)]:hidden">
+                <CharacterGrid peticion="status=Alive" />
+            </div>
+        </section>
+        <Footer />
+        </>
     );
 };
 
