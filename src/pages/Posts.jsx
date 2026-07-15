@@ -1,11 +1,13 @@
 import { usePost } from "../hooks/usePost";
 import PostForm from "../features/posts/PostForm";
 import PostCard from "../components/PostCard";
+import Footer from "../components/Footer";
 
 const Posts = () => {
     const { posts, loading, enviando, agregarPost, mensaje, ultimoPostCreado } = usePost();
 
     return (
+        <>
         <div className="pt-28 max-w-7xl mx-auto">
             <div className="pb-12 px-4 flex flex-col items-center justify-center text-center max-w-2xl mx-auto space-y-6">
                 <div className="relative select-none">
@@ -28,7 +30,10 @@ const Posts = () => {
                 </div>
                 )}
             </div>
+            
         </div>
+        <Footer />
+        </>
     );
 };
 
